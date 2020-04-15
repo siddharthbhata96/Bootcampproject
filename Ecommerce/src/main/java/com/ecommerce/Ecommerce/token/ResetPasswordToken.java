@@ -1,4 +1,6 @@
-package com.ecommerce.Ecommerce.entities.Registration_Details;
+package com.ecommerce.Ecommerce.token;
+
+import com.ecommerce.Ecommerce.entities.Registration_Details.User;
 
 import javax.persistence.*;
 import java.sql.Timestamp;

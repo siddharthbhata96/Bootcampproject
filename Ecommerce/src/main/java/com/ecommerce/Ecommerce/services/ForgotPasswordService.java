@@ -3,7 +3,7 @@ package com.ecommerce.Ecommerce.services;
 import com.ecommerce.Ecommerce.dto.ForgotPasswordDto;
 
 import com.ecommerce.Ecommerce.entities.Registration_Details.EmailSenderService;
-import com.ecommerce.Ecommerce.entities.Registration_Details.ResetPasswordToken;
+import com.ecommerce.Ecommerce.token.ResetPasswordToken;
 import com.ecommerce.Ecommerce.entities.Registration_Details.User;
 import com.ecommerce.Ecommerce.exception.TokenExpiredException;
 import com.ecommerce.Ecommerce.repos.ResetPasswordRepository;

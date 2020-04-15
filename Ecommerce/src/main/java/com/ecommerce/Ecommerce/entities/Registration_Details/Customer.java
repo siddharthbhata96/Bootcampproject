@@ -8,16 +8,16 @@ import java.util.List;
 @Entity
 @PrimaryKeyJoinColumn(name = "user_id")
 public class Customer extends User {
-    private long  contact;
+    private String  contact;
 
     @OneToMany(mappedBy = "customer_name", cascade = CascadeType.ALL)
     private List<Product_Review> reviews;
 
-    public long getContact() {
+    public String getContact() {
         return contact;
     }
 
-    public void setContact(long contact) {
+    public void setContact(String contact) {
         this.contact = contact;
     }
 

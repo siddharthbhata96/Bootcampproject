@@ -16,6 +16,7 @@ import java.util.Set;
 public class User {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
+    @JsonIgnore
     private int id;
     private String email;
     private String first_name;
@@ -25,6 +26,7 @@ public class User {
     private String password;
     private boolean is_deleted=false;
     private boolean is_active=false;
+    private Boolean is_nonLocked;
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<Address> address;
@@ -34,6 +36,9 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id",referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id",referencedColumnName = "id"))
     private List<Role> roles;
+
+    @JsonIgnore
+    private Integer attempts=0;
 
     public User()
     {
@@ -137,6 +142,22 @@ public class User {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    public Integer getAttempts() {
+        return attempts;
+    }
+
+    public void setAttempts(Integer attempts) {
+        this.attempts = attempts;
+    }
+
+    public Boolean getIs_nonLocked() {
+        return is_nonLocked;
+    }
+
+    public void setIs_nonLocked(Boolean is_nonLocked) {
+        this.is_nonLocked = is_nonLocked;
     }
 
     @Override

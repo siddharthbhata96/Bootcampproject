@@ -14,6 +14,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
+import org.springframework.web.bind.annotation.PutMapping;
 
 @Configuration
 @EnableResourceServer
@@ -68,6 +69,10 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
                 .antMatchers("/admin/home").hasAnyRole("ADMIN")
                 .antMatchers("/customer/home").hasAnyRole("CUSTOMER")
                 .antMatchers("/customer/showAddress/{id}").hasAnyRole("CUSTOMER")
+                .antMatchers("/addCustomerAddress/{id}").hasAnyRole("CUSTOMER")
+                .antMatchers("/updateCustomerProfile/{id}").hasAnyRole("CUSTOMER")
+                .antMatchers("/updateCustomerAddress/{id}").hasAnyRole("CUSTOMER")
+                .antMatchers("/deleteCustomerAddress/{id}").hasAnyRole("CUSTOMER")
                 .antMatchers("/customers").hasAnyRole("ADMIN")
                 .antMatchers("/sellers").hasAnyRole("ADMIN")
                 .antMatchers("/doLogout").hasAnyRole("ADMIN","SELLER","CUSTOMER")

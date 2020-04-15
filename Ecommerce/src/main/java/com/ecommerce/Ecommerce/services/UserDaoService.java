@@ -1,15 +1,9 @@
 package com.ecommerce.Ecommerce.services;
 
-import com.ecommerce.Ecommerce.entities.Product_Details.Category;
 import com.ecommerce.Ecommerce.entities.Registration_Details.*;
 import com.ecommerce.Ecommerce.repos.*;
-import com.fasterxml.jackson.databind.ser.FilterProvider;
-import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
-import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
+import com.ecommerce.Ecommerce.token.ConfirmationToken;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
-import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;

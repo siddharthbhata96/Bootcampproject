@@ -1,36 +1,27 @@
-package com.ecommerce.Ecommerce.entities.Registration_Details;
+package com.ecommerce.Ecommerce.dto;
 
-import com.fasterxml.jackson.annotation.JsonFilter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ecommerce.Ecommerce.entities.Registration_Details.Customer;
+import com.ecommerce.Ecommerce.entities.Registration_Details.User;
 
+import javax.validation.constraints.NotNull;
 
-import javax.persistence.*;
+public class AddressDto {
 
-@Entity
-public class Address{
-    @Id
-    @GeneratedValue(generator = "increment")
-
-    private int id;
+    @NotNull
     private String house_number;
+    @NotNull
     private String city;
+    @NotNull
     private String state;
+    @NotNull
     private String country;
+    @NotNull
     private String zip_code;
+    @NotNull
     private String label;
-    private boolean isDeleted;
 
-    @ManyToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name = "user_id")
     private User user;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getHouse_number() {
         return house_number;
@@ -80,20 +71,13 @@ public class Address{
         this.label = label;
     }
 
-    public boolean isDeleted() {
-        return isDeleted;
-    }
-
-    public void setDeleted(boolean deleted) {
-        isDeleted = deleted;
-    }
-
-    public User getUser() {
-        return user;
+    public User getUser(User user) {
+        return this.user;
     }
 
     public void setUser(User user) {
         this.user = user;
     }
+
 
 }

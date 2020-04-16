@@ -105,7 +105,7 @@ public class SellerDaoService {
             return "Address saved";
         }
         else{
-            return "Wrong address id";
+            return "Wrong address id passed";
         }
     }
 }

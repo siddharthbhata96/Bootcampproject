@@ -1,12 +1,11 @@
 package com.ecommerce.Ecommerce.repos;
 
-import com.ecommerce.Ecommerce.entities.Registration_Details.Address;
+import com.ecommerce.Ecommerce.entities.registration.Address;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 import java.util.Optional;
 
 @Repository

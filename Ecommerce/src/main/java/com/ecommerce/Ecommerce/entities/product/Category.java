@@ -1,12 +1,10 @@
-package com.ecommerce.Ecommerce.entities.Product_Details;
+package com.ecommerce.Ecommerce.entities.product;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Component
 @Entity

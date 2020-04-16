@@ -1,4 +1,4 @@
-package com.ecommerce.Ecommerce.entities.Registration_Details;
+package com.ecommerce.Ecommerce.entities.registration;
 
 import javax.persistence.Entity;
 

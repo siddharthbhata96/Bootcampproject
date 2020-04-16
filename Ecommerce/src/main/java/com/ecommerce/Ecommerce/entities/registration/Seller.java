@@ -1,6 +1,6 @@
-package com.ecommerce.Ecommerce.entities.Registration_Details;
+package com.ecommerce.Ecommerce.entities.registration;
 
-import com.ecommerce.Ecommerce.entities.Product_Details.Product;
+import com.ecommerce.Ecommerce.entities.product.Product;
 
 import javax.persistence.*;
 import java.util.ArrayList;

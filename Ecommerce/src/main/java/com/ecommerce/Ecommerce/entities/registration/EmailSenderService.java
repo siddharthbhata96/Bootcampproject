@@ -1,4 +1,4 @@
-package com.ecommerce.Ecommerce.entities.Registration_Details;
+package com.ecommerce.Ecommerce.entities.registration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;

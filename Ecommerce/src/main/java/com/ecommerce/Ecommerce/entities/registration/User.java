@@ -1,13 +1,11 @@
-package com.ecommerce.Ecommerce.entities.Registration_Details;
+package com.ecommerce.Ecommerce.entities.registration;
 
 
 import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 
 @Entity
@@ -22,7 +20,6 @@ public class User {
     private String first_name;
     private String middle_name;
     private String last_name;
-   // @Pattern(regexp="^[a-zA-Z0-9]{8,15}",message="Passowrd should be alfa numeric and length should be between 8 and 15")
     private String password;
     private boolean is_deleted=false;
     private boolean is_active=false;

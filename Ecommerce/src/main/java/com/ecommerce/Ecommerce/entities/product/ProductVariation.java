@@ -1,10 +1,10 @@
-package com.ecommerce.Ecommerce.entities.Product_Details;
+package com.ecommerce.Ecommerce.entities.product;
 
 import javax.persistence.Entity;
 import javax.persistence.*;
 
 @Entity
-public class Product_Variation {
+public class ProductVariation {
     @Id
     @GeneratedValue(generator = "increment")
     private int id;

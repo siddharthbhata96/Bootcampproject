@@ -1,6 +1,6 @@
 package com.ecommerce.Ecommerce.services;
 
-import com.ecommerce.Ecommerce.entities.Registration_Details.*;
+import com.ecommerce.Ecommerce.entities.registration.*;
 import com.ecommerce.Ecommerce.repos.*;
 import com.ecommerce.Ecommerce.token.ConfirmationToken;
 import org.springframework.beans.factory.annotation.Autowired;

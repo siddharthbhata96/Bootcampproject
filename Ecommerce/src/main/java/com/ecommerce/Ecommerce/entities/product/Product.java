@@ -1,7 +1,7 @@
 
-package com.ecommerce.Ecommerce.entities.Product_Details;
+package com.ecommerce.Ecommerce.entities.product;
 
-import com.ecommerce.Ecommerce.entities.Registration_Details.Seller;
+import com.ecommerce.Ecommerce.entities.registration.Seller;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -28,10 +28,10 @@ public class Product {
     private Category category;
 
     @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
-    private List<Product_Variation> product_variation=new ArrayList();
+    private List<ProductVariation> product_variation=new ArrayList();
 
     @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
-    private List<Product_Review>product_reviews=new ArrayList();
+    private List<ProductReview>product_reviews=new ArrayList();
 
     public int getId() {
         return id;
@@ -90,11 +90,11 @@ public class Product {
         this.is_active = is_active;
     }
 
-    public List<Product_Variation> getProduct_variation() {
+    public List<ProductVariation> getProduct_variation() {
         return product_variation;
     }
 
-    public void setProduct_variation(List<Product_Variation> product_variation) {
+    public void setProduct_variation(List<ProductVariation> product_variation) {
         this.product_variation = product_variation;
     }
 
@@ -114,11 +114,11 @@ public class Product {
         this.category = category;
     }
 
-    public List<Product_Review> getProduct_reviews() {
+    public List<ProductReview> getProduct_reviews() {
         return product_reviews;
     }
 
-    public void setProduct_reviews(List<Product_Review> product_reviews) {
+    public void setProduct_reviews(List<ProductReview> product_reviews) {
         this.product_reviews = product_reviews;
     }
 }

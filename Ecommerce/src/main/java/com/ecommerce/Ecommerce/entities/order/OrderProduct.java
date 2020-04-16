@@ -1,11 +1,11 @@
-package com.ecommerce.Ecommerce.entities.Order_Details;
+package com.ecommerce.Ecommerce.entities.order;
 
-import com.ecommerce.Ecommerce.entities.Product_Details.Product_Variation;
+import com.ecommerce.Ecommerce.entities.product.ProductVariation;
 
 import javax.persistence.*;
 
 @Entity
-public class Order_Product {
+public class OrderProduct {
     @Id
     @GeneratedValue(generator = "increment")
     private Integer id;
@@ -13,7 +13,7 @@ public class Order_Product {
     private Double price;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "product_variation_id")
-    private Product_Variation product_variation;
+    private ProductVariation product_variation;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="order_id")
@@ -43,11 +43,11 @@ public class Order_Product {
         this.price = price;
     }
 
-    public Product_Variation getProduct_variation() {
+    public ProductVariation getProduct_variation() {
         return product_variation;
     }
 
-    public void setProduct_variation(Product_Variation product_variation) {
+    public void setProduct_variation(ProductVariation product_variation) {
         this.product_variation = product_variation;
     }
 

@@ -1,10 +1,11 @@
 package com.ecommerce.Ecommerce.dto;
 
 
-import com.ecommerce.Ecommerce.entities.Registration_Details.Address;
+import com.ecommerce.Ecommerce.entities.registration.Address;
 import com.ecommerce.Ecommerce.validations.PasswordMatches;
 import com.ecommerce.Ecommerce.validations.Phone;
 import com.ecommerce.Ecommerce.validations.ValidPassword;
+import com.fasterxml.jackson.annotation.JsonFilter;
 
 import javax.persistence.Column;
 import javax.validation.constraints.Email;
@@ -12,6 +13,7 @@ import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 @PasswordMatches
+@JsonFilter("CustomerDto-Filter")
 public class CustomerRegisterDto {
 
     @NotNull

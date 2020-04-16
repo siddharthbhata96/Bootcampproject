@@ -2,7 +2,6 @@ package com.ecommerce.Ecommerce.controller;
 
 import com.ecommerce.Ecommerce.dto.AddressDto;
 import com.ecommerce.Ecommerce.dto.CustomerRegisterDto;
-import com.ecommerce.Ecommerce.entities.Registration_Details.Address;
 import com.ecommerce.Ecommerce.services.CustomerDaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.converter.json.MappingJacksonValue;
@@ -10,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 public class CustomerController {

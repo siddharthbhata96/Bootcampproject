@@ -1,12 +1,12 @@
 package com.ecommerce.Ecommerce.services;
 
-import com.ecommerce.Ecommerce.entities.Order_Details.Order_Product;
-import com.ecommerce.Ecommerce.entities.Order_Details.Orders;
-import com.ecommerce.Ecommerce.entities.Product_Details.Cart;
-import com.ecommerce.Ecommerce.entities.Product_Details.Product_Variation;
-import com.ecommerce.Ecommerce.entities.Registration_Details.Address;
-import com.ecommerce.Ecommerce.entities.Registration_Details.Customer;
-import com.ecommerce.Ecommerce.entities.Registration_Details.User;
+import com.ecommerce.Ecommerce.entities.order.OrderProduct;
+import com.ecommerce.Ecommerce.entities.order.Orders;
+import com.ecommerce.Ecommerce.entities.product.Cart;
+import com.ecommerce.Ecommerce.entities.product.ProductVariation;
+import com.ecommerce.Ecommerce.entities.registration.Address;
+import com.ecommerce.Ecommerce.entities.registration.Customer;
+import com.ecommerce.Ecommerce.entities.registration.User;
 import com.ecommerce.Ecommerce.repos.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +20,7 @@ public class OrderDaoService {
     private UserRepository userRepository;
 
     @Autowired
-    private Product_VariationRepository productVariationRepository;
+    private ProductVariationRepository productVariationRepository;
 
     @Autowired
     private AddressRepository addressRepository;
@@ -32,7 +32,7 @@ public class OrderDaoService {
     private CartRepository cartRepository;
 
     @Autowired
-    private Order_ProductRepository order_productRepository;
+    private OrderProductRepository order_productRepository;
 
     public Orders addToOrder(Integer customer_user_id, Orders orders, Integer cart_id)
     {
@@ -63,12 +63,12 @@ public class OrderDaoService {
         Cart cart;
         cart= cartId.get();
 
-        Order_Product orderProduct=new Order_Product();
+        OrderProduct orderProduct=new OrderProduct();
         orderProduct.setOrders(orders);
         orderProduct.setProduct_variation(cart.getProductVariation());
         orderProduct.setQuantity(cart.getQuantity());
 
-        Product_Variation product_variation= cart.getProductVariation();
+        ProductVariation product_variation= cart.getProductVariation();
 
         orderProduct.setPrice(product_variation.getPrice());
 

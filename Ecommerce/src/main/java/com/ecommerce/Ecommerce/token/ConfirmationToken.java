@@ -1,6 +1,6 @@
 package com.ecommerce.Ecommerce.token;
 
-import com.ecommerce.Ecommerce.entities.Registration_Details.User;
+import com.ecommerce.Ecommerce.entities.registration.User;
 
 import javax.persistence.*;
 import java.util.Date;

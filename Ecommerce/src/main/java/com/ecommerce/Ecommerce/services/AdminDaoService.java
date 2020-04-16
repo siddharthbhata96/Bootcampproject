@@ -1,6 +1,6 @@
 package com.ecommerce.Ecommerce.services;
 
-import com.ecommerce.Ecommerce.entities.Registration_Details.*;
+import com.ecommerce.Ecommerce.entities.registration.*;
 import com.ecommerce.Ecommerce.repos.CustomerRepository;
 import com.ecommerce.Ecommerce.repos.SellerRepository;
 import com.ecommerce.Ecommerce.repos.UserRepository;
@@ -15,10 +15,8 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Supplier;
 
 
 @Service
@@ -40,7 +38,6 @@ public class AdminDaoService{
     public MappingJacksonValue listAllCustomer(String page, String size, String SortBy)
     {
         List<Customer> customers = customerRepository.findAll(PageRequest.of(Integer.parseInt(page),Integer.parseInt(size), Sort.by(SortBy))).getContent();
-
         SimpleBeanPropertyFilter filter1=SimpleBeanPropertyFilter.filterOutAllExcept("id","first_name","middle_name","last_name","email","is_active");
 
         FilterProvider filterProvider=new SimpleFilterProvider().addFilter("userFilter",filter1);

@@ -1,7 +1,6 @@
 package com.ecommerce.Ecommerce.dto;
 
-import com.ecommerce.Ecommerce.entities.Registration_Details.Customer;
-import com.ecommerce.Ecommerce.entities.Registration_Details.User;
+import com.ecommerce.Ecommerce.entities.registration.User;
 
 import javax.validation.constraints.NotNull;
 

@@ -1,6 +1,6 @@
 package com.ecommerce.Ecommerce.controller;
 
-import com.ecommerce.Ecommerce.entities.Order_Details.Orders;
+import com.ecommerce.Ecommerce.entities.order.Orders;
 import com.ecommerce.Ecommerce.services.OrderDaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;

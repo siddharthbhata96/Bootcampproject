@@ -1,11 +1,11 @@
-package com.ecommerce.Ecommerce.entities.Product_Details;
+package com.ecommerce.Ecommerce.entities.product;
 
-import com.ecommerce.Ecommerce.entities.Registration_Details.Customer;
+import com.ecommerce.Ecommerce.entities.registration.Customer;
 
 import javax.persistence.*;
 
 @Entity
-public class Product_Review {
+public class ProductReview {
     @Id
     @GeneratedValue(generator = "increment")
     private Integer id;

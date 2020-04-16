@@ -1,12 +1,10 @@
 package com.ecommerce.Ecommerce.services;
 
 import com.ecommerce.Ecommerce.dto.AddressDto;
-import com.ecommerce.Ecommerce.dto.CustomerRegisterDto;
 import com.ecommerce.Ecommerce.dto.SellerRegisterDto;
-import com.ecommerce.Ecommerce.entities.Registration_Details.*;
+import com.ecommerce.Ecommerce.entities.registration.*;
 import com.ecommerce.Ecommerce.exception.UserNotFoundException;
 import com.ecommerce.Ecommerce.repos.AddressRepository;
-import com.ecommerce.Ecommerce.repos.CustomerRepository;
 import com.ecommerce.Ecommerce.repos.SellerRepository;
 import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
@@ -71,7 +69,7 @@ public class SellerDaoService {
             seller.setPassword(passwordEncoder.encode(sellerRegisterDto.getPassword()));
             sellerRegisterDto.getContact();
             sellerRegisterDto.getEmail();
-            if(a!=b)
+            if(!a.equals(b))
             {
                 SimpleMailMessage mailMessage=new SimpleMailMessage();
                 mailMessage.setTo(sellerRegisterDto.getEmail());

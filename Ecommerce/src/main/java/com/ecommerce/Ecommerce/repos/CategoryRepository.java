@@ -1,6 +1,6 @@
 package com.ecommerce.Ecommerce.repos;
 
-import com.ecommerce.Ecommerce.entities.Product_Details.Category;
+import com.ecommerce.Ecommerce.entities.product.Category;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

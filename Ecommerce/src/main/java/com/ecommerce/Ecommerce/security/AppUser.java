@@ -1,7 +1,7 @@
 
 package com.ecommerce.Ecommerce.security;
 
-import com.ecommerce.Ecommerce.entities.Registration_Details.User;
+import com.ecommerce.Ecommerce.entities.registration.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

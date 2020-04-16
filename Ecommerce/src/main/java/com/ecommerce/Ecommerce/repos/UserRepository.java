@@ -1,18 +1,10 @@
 package com.ecommerce.Ecommerce.repos;
 
-import com.ecommerce.Ecommerce.entities.Product_Details.Category;
-import com.ecommerce.Ecommerce.entities.Registration_Details.Customer;
-import com.ecommerce.Ecommerce.entities.Registration_Details.Seller;
-import com.ecommerce.Ecommerce.entities.Registration_Details.User;
-import org.springframework.data.jpa.repository.Query;
+import com.ecommerce.Ecommerce.entities.registration.User;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 import java.util.Optional;
-
-import static java.lang.Boolean.TRUE;
 
 @Repository
 public interface UserRepository extends CrudRepository<User,Integer> {

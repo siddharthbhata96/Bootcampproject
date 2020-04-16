@@ -1,7 +1,7 @@
 
-package com.ecommerce.Ecommerce.entities.Order_Details;
+package com.ecommerce.Ecommerce.entities.order;
 
-import com.ecommerce.Ecommerce.entities.Registration_Details.Customer;
+import com.ecommerce.Ecommerce.entities.registration.Customer;
 
 import javax.persistence.*;
 import java.util.Date;

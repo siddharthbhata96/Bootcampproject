@@ -1,6 +1,6 @@
-package com.ecommerce.Ecommerce.entities.Registration_Details;
+package com.ecommerce.Ecommerce.entities.registration;
 
-import com.ecommerce.Ecommerce.entities.Product_Details.Product_Review;
+import com.ecommerce.Ecommerce.entities.product.ProductReview;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,7 +11,7 @@ public class Customer extends User {
     private String  contact;
 
     @OneToMany(mappedBy = "customer_name", cascade = CascadeType.ALL)
-    private List<Product_Review> reviews;
+    private List<ProductReview> reviews;
 
     public String getContact() {
         return contact;
@@ -21,11 +21,11 @@ public class Customer extends User {
         this.contact = contact;
     }
 
-    public List<Product_Review> getReviews() {
+    public List<ProductReview> getReviews() {
         return reviews;
     }
 
-    public void setReviews(List<Product_Review> reviews) {
+    public void setReviews(List<ProductReview> reviews) {
         this.reviews = reviews;
     }
 

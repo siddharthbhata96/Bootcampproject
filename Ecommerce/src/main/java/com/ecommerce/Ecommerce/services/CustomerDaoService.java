@@ -2,9 +2,9 @@ package com.ecommerce.Ecommerce.services;
 
 import com.ecommerce.Ecommerce.dto.AddressDto;
 import com.ecommerce.Ecommerce.dto.CustomerRegisterDto;
-import com.ecommerce.Ecommerce.entities.Registration_Details.Address;
-import com.ecommerce.Ecommerce.entities.Registration_Details.Customer;
-import com.ecommerce.Ecommerce.entities.Registration_Details.User;
+import com.ecommerce.Ecommerce.entities.registration.Address;
+import com.ecommerce.Ecommerce.entities.registration.Customer;
+import com.ecommerce.Ecommerce.entities.registration.User;
 import com.ecommerce.Ecommerce.exception.UserNotFoundException;
 import com.ecommerce.Ecommerce.repos.AddressRepository;
 import com.ecommerce.Ecommerce.repos.CustomerRepository;
@@ -13,7 +13,6 @@ import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Modifying;
@@ -24,7 +23,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -40,9 +38,9 @@ public class CustomerDaoService {
 
     PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-   public MappingJacksonValue showCustomerData(String emailid)
+   public MappingJacksonValue showCustomerData(String emailId)
     {
-        Optional<Customer> customer=customerRepository.findByEmail(emailid);
+        Optional<Customer> customer=customerRepository.findByEmail(emailId);
         if(customer.isPresent()) {
             SimpleBeanPropertyFilter filter = SimpleBeanPropertyFilter.filterOutAllExcept("id", "first_name", "middle_name", "last_name", "contact", "is_active");
 

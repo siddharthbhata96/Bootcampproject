@@ -1,9 +1,8 @@
-package com.ecommerce.Ecommerce.entities;
+package com.ecommerce.Ecommerce.security;
 
-import com.ecommerce.Ecommerce.entities.Registration_Details.Admin;
-import com.ecommerce.Ecommerce.entities.Registration_Details.Customer;
-import com.ecommerce.Ecommerce.entities.Registration_Details.Role;
-import com.ecommerce.Ecommerce.entities.Registration_Details.User;
+import com.ecommerce.Ecommerce.entities.registration.Admin;
+import com.ecommerce.Ecommerce.entities.registration.Role;
+import com.ecommerce.Ecommerce.entities.registration.User;
 import com.ecommerce.Ecommerce.repos.AdminRepository;
 import com.ecommerce.Ecommerce.repos.RoleRepository;
 import com.ecommerce.Ecommerce.repos.UserRepository;
@@ -18,7 +17,7 @@ import java.util.Arrays;
 import java.util.Optional;
 
 @Component
-public class Startup implements ApplicationRunner {
+public class Bootstrap implements ApplicationRunner {
     @Autowired
     private RoleRepository roleRepository;
     @Autowired

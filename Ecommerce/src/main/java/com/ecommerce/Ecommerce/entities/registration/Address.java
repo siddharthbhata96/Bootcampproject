@@ -1,8 +1,7 @@
-package com.ecommerce.Ecommerce.entities.Registration_Details;
+package com.ecommerce.Ecommerce.entities.registration;
 
-import com.fasterxml.jackson.annotation.JsonFilter;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 
 import javax.persistence.*;
 
@@ -20,7 +19,8 @@ public class Address{
     private String label;
     private boolean isDeleted;
 
-    @ManyToOne(cascade=CascadeType.ALL)
+    @JsonIgnore
+   @ManyToOne(cascade=CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 

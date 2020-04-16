@@ -1,7 +1,7 @@
 package com.ecommerce.Ecommerce.security;
 
-import com.ecommerce.Ecommerce.entities.Registration_Details.EmailSenderService;
-import com.ecommerce.Ecommerce.entities.Registration_Details.User;
+import com.ecommerce.Ecommerce.entities.registration.EmailSenderService;
+import com.ecommerce.Ecommerce.entities.registration.User;
 import com.ecommerce.Ecommerce.repos.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

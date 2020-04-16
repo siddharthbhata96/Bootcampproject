@@ -1,9 +1,9 @@
 package com.ecommerce.Ecommerce.services;
 
-import com.ecommerce.Ecommerce.entities.Product_Details.*;
-import com.ecommerce.Ecommerce.entities.Registration_Details.Customer;
-import com.ecommerce.Ecommerce.entities.Registration_Details.Seller;
-import com.ecommerce.Ecommerce.entities.Registration_Details.User;
+import com.ecommerce.Ecommerce.entities.product.*;
+import com.ecommerce.Ecommerce.entities.registration.Customer;
+import com.ecommerce.Ecommerce.entities.registration.Seller;
+import com.ecommerce.Ecommerce.entities.registration.User;
 import com.ecommerce.Ecommerce.repos.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,10 +26,10 @@ public class ProductDaoService {
     Category category;
 
     @Autowired
-    Product_VariationRepository product_variationRepository;
+    ProductVariationRepository productVariationRepository;
 
     @Autowired
-    Product_ReviewRepository product_reviewRepository;
+    ProductReviewRepository productReviewRepository;
 
     @Autowired
     CartRepository cartRepository;
@@ -77,17 +77,23 @@ public class ProductDaoService {
 
     }
 
-    public List<Product_Variation> createProductVariation(Integer id,List<Product_Variation>product_variations)
+    public List<ProductVariation> createProductVariation(Integer id, List<ProductVariation>product_variations)
     {
         Product product;
         Optional<Product>byId=productRepository.findById(id);
         product=byId.get();
         product_variations.forEach((e->e.setProduct(product)));
-        product_variationRepository.saveAll(product_variations);
+        productVariationRepository.saveAll(product_variations);
         return product_variations;
     }
+  /*  public String saveProductImage(Integer id)
+    {
+        Product_Variation productVariation;
+        Optional<Product_Variation>byId=product_variationRepository.findById(id);
+        product_variationRepository.save()
+    }*/
 
-    public List<Product_Review> createProductReviews(Integer customer_user_id,List<Product_Review> product_reviews,Integer product_id)
+    public List<ProductReview> createProductReviews(Integer customer_user_id, List<ProductReview> product_reviews, Integer product_id)
     {
         User customer;
         Optional<User>byIdCustomer=userRepository.findById(customer_user_id);
@@ -104,7 +110,7 @@ public class ProductDaoService {
         product=byIdProduct.get();
         product_reviews.forEach(e->e.setProduct(product));
 
-        product_reviewRepository.saveAll(product_reviews);
+        productReviewRepository.saveAll(product_reviews);
         return product_reviews;
     }
 
@@ -120,8 +126,8 @@ public class ProductDaoService {
 
         cart.setCustomer(customer1);
 
-        Optional<Product_Variation> productVariation= product_variationRepository.findById(productVariation_id);
-        Product_Variation productVariation1;
+        Optional<ProductVariation> productVariation= productVariationRepository.findById(productVariation_id);
+        ProductVariation productVariation1;
         productVariation1= productVariation.get();
 
         cart.setProductVariation(productVariation1);

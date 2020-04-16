@@ -87,6 +87,7 @@ public class CustomerDaoService {
             customerRegisterDto.getLastName();
             customerRegisterDto.getPassword();
             customerRegisterDto.getConfirmPassword();
+            customer.setPassword(passwordEncoder.encode(customerRegisterDto.getPassword()));
             customerRegisterDto.getContact();
             customerRegisterDto.getEmail();
             customerRepository.save(customer);

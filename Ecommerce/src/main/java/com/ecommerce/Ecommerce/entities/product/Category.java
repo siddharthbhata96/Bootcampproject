@@ -11,10 +11,11 @@ import java.util.List;
 public class Category {
     @Id
     @GeneratedValue(generator="increment")
-    private int id;
+    private Long id;
     private String name;
 
-   @JsonIgnore
+
+    @JsonIgnore
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     private List<Product> products;
 
@@ -23,11 +24,11 @@ public class Category {
     private Category parentCategory;
 
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -2,11 +2,12 @@ package com.ecommerce.Ecommerce.services;
 
 import com.ecommerce.Ecommerce.entities.order.OrderProduct;
 import com.ecommerce.Ecommerce.entities.order.Orders;
-import com.ecommerce.Ecommerce.entities.product.Cart;
+import com.ecommerce.Ecommerce.entities.order.Cart;
 import com.ecommerce.Ecommerce.entities.product.ProductVariation;
 import com.ecommerce.Ecommerce.entities.registration.Address;
 import com.ecommerce.Ecommerce.entities.registration.Customer;
 import com.ecommerce.Ecommerce.entities.registration.User;
+import com.ecommerce.Ecommerce.exception.ResourceNotFoundException;
 import com.ecommerce.Ecommerce.repos.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,47 +35,59 @@ public class OrderDaoService {
     @Autowired
     private OrderProductRepository order_productRepository;
 
-    public Orders addToOrder(Integer customer_user_id, Orders orders, Integer cart_id)
+    public String addToOrders(Integer customer_user_id, Orders orders, Integer cart_id)
     {
-        Optional<User> customer = userRepository.findById(customer_user_id);
-        User user;
-        user=customer.get();
-
-        Customer customer1;
-        customer1=(Customer)user;
-
-        orders.setCustomer(customer1);
-
-        Address address;
-        String address_label=orders.getCustomer_address_label();
-        Optional<Address> address1= addressRepository.findByAdd(address_label, customer_user_id);
-        address= address1.get();
-
-        orders.setCustomer_address_address_line(address.getLabel());
-        orders.setCustomer_address_city(address.getCity());
-        orders.setCustomer_address_country(address.getCountry());
-        orders.setCustomer_address_state(address.getState());
-        orders.setCustomer_address_zipcode(address.getZip_code());
-        orders.setDate_created(new Date());
-
-        orderRepository.save(orders);
-
         Optional<Cart> cartId= cartRepository.findById(cart_id);
-        Cart cart;
-        cart= cartId.get();
+        if(cartId.isPresent())
+        {
+            Cart cart;
+            cart = cartId.get();
 
-        OrderProduct orderProduct=new OrderProduct();
-        orderProduct.setOrders(orders);
-        orderProduct.setProduct_variation(cart.getProductVariation());
-        orderProduct.setQuantity(cart.getQuantity());
+            Customer customer=cart.getCustomer();
 
-        ProductVariation product_variation= cart.getProductVariation();
+            orders.setCustomer(customer);
 
-        orderProduct.setPrice(product_variation.getPrice());
+            Address address;
+            String address_label=orders.getCustomer_address_label();
+            Optional<Address>address1=addressRepository.findByAdd(address_label, customer_user_id);
 
-        order_productRepository.save(orderProduct);
+            if(address1.isPresent())
+            {
+                address=address1.get();
+                orders.setCustomer_address_address_line(address.getHouse_number());
+                orders.setCustomer_address_city(address.getCity());
+                orders.setCustomer_address_state(address.getState());
+                orders.setCustomer_address_country(address.getCountry());
+                orders.setCustomer_address_zipcode(address.getZip_code());
+                orders.setDate_created(new Date());
+            }
+            else
+            {
+                throw new ResourceNotFoundException("Address not available for this account");
+            }
+            OrderProduct orderProduct=new OrderProduct();
+            orderProduct.setOrders(orders);
+            orderProduct.setProduct_variation(cart.getProductVariation());
+            orderProduct.setQuantity(cart.getQuantity());
 
-        return orders;
+            ProductVariation productVariation=cart.getProductVariation();
+            orderProduct.setPrice(productVariation.getPrice());
+            Double amount=orderProduct.getPrice()*cart.getQuantity();
+            orders.setAmount_paid(amount);
+
+            Integer originalQty=productVariation.getQuantity_available();
+            Integer customerQty=cart.getQuantity();
+
+            productVariation.setQuantity_available(originalQty-customerQty);
+
+            productVariationRepository.save(productVariation);
+            order_productRepository.save(orderProduct);
+            orderRepository.save(orders);
+            return "Order will be delivered to selected address";
+        }
+        else
+        {
+            throw  new ResourceNotFoundException("Nothing in your cart");
+        }
     }
-
 }

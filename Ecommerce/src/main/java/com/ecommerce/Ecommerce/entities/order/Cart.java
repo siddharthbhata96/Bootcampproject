@@ -1,5 +1,6 @@
-package com.ecommerce.Ecommerce.entities.product;
+package com.ecommerce.Ecommerce.entities.order;
 
+import com.ecommerce.Ecommerce.entities.product.ProductVariation;
 import com.ecommerce.Ecommerce.entities.registration.Customer;
 
 import javax.persistence.*;
@@ -20,7 +21,7 @@ public class Cart {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "product_variation_id")
-    private ProductVariation productVariation;
+    private ProductVariation productvariation;
 
     public Integer getId() {
         return id;
@@ -55,10 +56,10 @@ public class Cart {
     }
 
     public ProductVariation getProductVariation() {
-        return productVariation;
+        return productvariation;
     }
 
     public void setProductVariation(ProductVariation productVariation) {
-        this.productVariation = productVariation;
+        this.productvariation = productVariation;
     }
 }

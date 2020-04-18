@@ -1,7 +1,6 @@
 package com.ecommerce.Ecommerce.services;
 
-import com.ecommerce.Ecommerce.dto.AddressDto;
-import com.ecommerce.Ecommerce.dto.SellerRegisterDto;
+import com.ecommerce.Ecommerce.dto.*;
 import com.ecommerce.Ecommerce.entities.registration.*;
 import com.ecommerce.Ecommerce.exception.UserNotFoundException;
 import com.ecommerce.Ecommerce.repos.AddressRepository;
@@ -55,56 +54,100 @@ public class SellerDaoService {
 
     @Transactional
     @Modifying
-    public String updateSeller(SellerRegisterDto sellerRegisterDto, Integer id){
-        Optional<Seller> byId = sellerRepository.findById(id);
-        Seller seller=byId.get();
-        String a=seller.getPassword();
-        BeanUtils.copyProperties(sellerRegisterDto,seller);
-        if(seller != null) {
-            sellerRegisterDto.getFirstName();
-            sellerRegisterDto.getMiddleName();
-            sellerRegisterDto.getLastName();
-            String b=sellerRegisterDto.getPassword();
-            sellerRegisterDto.getConfirmPassword();
-            seller.setPassword(passwordEncoder.encode(sellerRegisterDto.getPassword()));
-            sellerRegisterDto.getContact();
-            sellerRegisterDto.getEmail();
-            if(!a.equals(b))
-            {
-                SimpleMailMessage mailMessage=new SimpleMailMessage();
-                mailMessage.setTo(sellerRegisterDto.getEmail());
-                mailMessage.setSubject("Password changed");
-                mailMessage.setFrom("siddharth.bhatia1996@gmail.com");
-                mailMessage.setText("Your password was updated");
-                emailService.sendEmail(mailMessage);
-            }
-            sellerRepository.save(seller);
-            return "User updated";
-        }else {
+    public String updateSeller(SellerUpdateDto sellerUpdateDto, Integer id){
+        Optional<Seller> seller = sellerRepository.findById(id);
+        if (seller.isPresent()){
+            Seller seller1= seller.get();
+            if(sellerUpdateDto.getFirstName() != null)
+                seller1.setFirst_name(sellerUpdateDto.getFirstName());
+
+            if(sellerUpdateDto.getMiddleName() != null)
+                seller1.setMiddle_name(sellerUpdateDto.getMiddleName());
+
+            if(sellerUpdateDto.getLastName() != null)
+                seller1.setLast_name(sellerUpdateDto.getLastName());
+
+            if (sellerUpdateDto.getEmail() != null)
+                seller1.setEmail(sellerUpdateDto.getEmail());
+
+            if(sellerUpdateDto.getGst() != null)
+                seller1.setGST(sellerUpdateDto.getGst());
+
+            if (sellerUpdateDto.getCompany_name() != null)
+                seller1.setCompany_name(sellerUpdateDto.getCompany_name());
+
+            if (sellerUpdateDto.getCompany_contact() != null)
+                seller1.setCompany_contact(sellerUpdateDto.getCompany_contact());
+
+            sellerRepository.save(seller1);
+            return "Profile updated successfully";
+        }
+        else
             throw new UserNotFoundException("User not found");
+    }
+
+    @Transactional
+    @Modifying
+    public  String updateSellerAddress(AddressUpdateDto addressUpdateDto, Integer userId,Integer addressId)
+    {
+        Optional<Address> address=addressRepository.findById(addressId);
+        if(address.isPresent()) {
+            Address address1 = address.get();
+            if (addressUpdateDto.getHouse_number() != null) {
+                address1.setHouse_number(addressUpdateDto.getHouse_number());
+            }
+            if (addressUpdateDto.getCity() != null) {
+                address1.setCity(addressUpdateDto.getCity());
+            }
+            if (addressUpdateDto.getState() != null) {
+                address1.setCity(addressUpdateDto.getState());
+            }
+            if (addressUpdateDto.getCountry() != null)
+            {
+                address1.setCountry(addressUpdateDto.getCountry());
+            }
+            if(addressUpdateDto.getZip_code()!=null)
+            {
+                address1.setZip_code(addressUpdateDto.getZip_code());
+            }
+            if(addressUpdateDto.getLabel()!=null)
+            {
+                address1.setLabel(addressUpdateDto.getLabel());
+            }
+            addressRepository.save(address1);
+            return "Address saved";
+        }
+        else{
+            return "Wrong address Id";
         }
     }
 
     @Transactional
     @Modifying
-    public  String updateSellerAddress(AddressDto addressDto ,Integer id)
-    {
-        Optional<Address> byId=addressRepository.findById(id);
-        Address address=byId.get();
-        BeanUtils.copyProperties(addressDto,address);
-        if(address!=null) {
-            addressDto.getHouse_number();
-            addressDto.getCity();
-            addressDto.getState();
-            addressDto.getCountry();
-            addressDto.getZip_code();
-            addressDto.getLabel();
-            addressRepository.save(address);
-            return "Address saved";
+    public String updateSellerPassword(SellerUpdateDto sellerUpdateDto, Integer id) {
+        Optional<Seller> seller = sellerRepository.findById(id);
+        if (seller.isPresent()) {
+            Seller seller1 = seller.get();
+            String matchPassword = seller1.getPassword();
+            if (sellerUpdateDto.getPassword() != null) {
+                String password = passwordEncoder.encode(sellerUpdateDto.getPassword());
+                if(sellerUpdateDto.getPassword().equals(sellerUpdateDto.getConfirmPassword())) {
+                    if (!password.equals(matchPassword)) {
+                        SimpleMailMessage mailMessage = new SimpleMailMessage();
+                        mailMessage.setTo(seller1.getEmail());
+                        mailMessage.setSubject("Password changed");
+                        mailMessage.setFrom("siddharth.bhatia1996@gmail.com");
+                        mailMessage.setText("Your password was updated");
+                        emailService.sendEmail(mailMessage);
+                        seller1.setPassword(password);
+                    }
+                }
+                else{
+                    return "Password does not match";
+                }
+            }
         }
-        else{
-            return "Wrong address id passed";
-        }
+        return "Password Updated";
     }
 }
 

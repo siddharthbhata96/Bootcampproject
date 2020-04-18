@@ -4,9 +4,8 @@ import com.ecommerce.Ecommerce.entities.registration.User;
 
 import javax.validation.constraints.NotNull;
 
-public class AddressDto {
+public class AddressRegisterDto {
 
-    @NotNull
     private String house_number;
     @NotNull
     private String city;

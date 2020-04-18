@@ -11,7 +11,7 @@ public class Orders {
     @Id
     @GeneratedValue(generator = "increment")
     private Integer id;
-    private Integer amount_paid;
+    private Double amount_paid;
     @Temporal(TemporalType.TIMESTAMP)
     private Date date_created;
     private String payment_method;
@@ -34,11 +34,11 @@ public class Orders {
         this.id = id;
     }
 
-    public Integer getAmount_paid() {
+    public Double getAmount_paid() {
         return amount_paid;
     }
 
-    public void setAmount_paid(Integer amount_paid) {
+    public void setAmount_paid(Double amount_paid) {
         this.amount_paid = amount_paid;
     }
 

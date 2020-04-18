@@ -60,15 +60,6 @@ public class UserController {
         return "Welcome Admin To Online Shopping Portal";
     }
 
-    @GetMapping("/seller/home")
-    public String sellerHome(){
-        return "Welcome Seller To Online Shopping Portal";
-    }
-
-    @GetMapping("/customer/home")
-    public String customerHome(){
-        return "Welcome Customer To Online Shopping Portal";
-    }
 
     @PostMapping(value="/confirmSave")
     public String confirmUserAccount(@RequestParam("token")String confirmationToken)

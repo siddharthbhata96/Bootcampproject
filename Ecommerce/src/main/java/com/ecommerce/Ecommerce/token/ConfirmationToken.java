@@ -15,6 +15,9 @@ public class ConfirmationToken {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date expiryDate;
+
     @OneToOne
     @JoinColumn(name="user_id")
     private User user;
@@ -49,6 +52,14 @@ public class ConfirmationToken {
 
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
+    }
+
+    public Date getExpiryDate() {
+        return expiryDate;
+    }
+
+    public void setExpiryDate(Date expiryDate) {
+        this.expiryDate = expiryDate;
     }
 
     public User getUser() {

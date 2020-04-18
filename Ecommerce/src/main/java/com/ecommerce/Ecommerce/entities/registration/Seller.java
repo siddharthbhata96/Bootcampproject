@@ -10,7 +10,7 @@ import java.util.List;
 @PrimaryKeyJoinColumn(name = "user_id")
 public class Seller extends User {
     private String GST;
-    private long company_contact;
+    private String company_contact;
     private String company_name;
 
     @OneToMany(mappedBy = "seller",cascade = CascadeType.ALL)
@@ -24,11 +24,11 @@ public class Seller extends User {
         this.GST = GST;
     }
 
-    public long getCompany_contact() {
+    public String getCompany_contact() {
         return company_contact;
     }
 
-    public void setCompany_contact(long company_contact) {
+    public void setCompany_contact(String company_contact) {
         this.company_contact = company_contact;
     }
 

@@ -1,9 +1,15 @@
 package com.ecommerce.Ecommerce.controller;
 
-import com.ecommerce.Ecommerce.dto.AddressDto;
-import com.ecommerce.Ecommerce.dto.CustomerRegisterDto;
+import com.ecommerce.Ecommerce.dto.AddressRegisterDto;
+import com.ecommerce.Ecommerce.dto.AddressUpdateDto;
+import com.ecommerce.Ecommerce.dto.CustomerUpdateDto;
+import com.ecommerce.Ecommerce.entities.registration.Customer;
+import com.ecommerce.Ecommerce.entities.registration.Customer;
 import com.ecommerce.Ecommerce.services.CustomerDaoService;
+import com.ecommerce.Ecommerce.services.UserDaoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,16 +21,33 @@ public class CustomerController {
     @Autowired
     CustomerDaoService data;
 
-   @GetMapping("/customer/showData/{emailid}")
-    public MappingJacksonValue getProfile(@PathVariable String emailid)
-    {
-        return data.showCustomerData(emailid);
+    @Autowired
+    UserDaoService userDaoService;
+
+    @Autowired
+    MessageSource messageSource;
+
+    @GetMapping("/customer/home")
+    public String customerHome(){
+        Customer customer = userDaoService.getLoggedInCustomer();
+        String name = customer.getFirst_name();
+        return messageSource.getMessage("welcome.message",new Object[]{name}, LocaleContextHolder.getLocale());
     }
 
-   @GetMapping("customer/showAddress/{id}")
-    public MappingJacksonValue getAddress(@PathVariable Integer id)
+   @GetMapping("/customer/showData")
+    public MappingJacksonValue getProfile()
     {
-        return data.showAddressData(id);
+        Customer customer=userDaoService.getLoggedInCustomer();
+        Integer customer_user_id=customer.getId();
+        return data.showCustomerData(customer_user_id);
+    }
+
+   @GetMapping("customer/showAddress")
+    public MappingJacksonValue getAddress()
+    {
+        Customer customer=userDaoService.getLoggedInCustomer();
+        Integer customer_user_id=customer.getId();
+        return data.showAddressData(customer_user_id);
     }
 
     /*@GetMapping("customer/showAddress/{id}")
@@ -33,39 +56,59 @@ public class CustomerController {
         return data.findAllAddress(id);
     }*/
 
-    @PatchMapping ("/updateCustomerProfile/{id}")
-    public String updateCustomerDetails(@Valid @RequestBody CustomerRegisterDto customer, @PathVariable(value = "id") Integer id, HttpServletResponse response){
-        String message = data.updateCustomer(customer,id);
+    @PatchMapping ("/updateCustomerProfile")
+    public String updateCustomerDetails(@RequestBody CustomerUpdateDto customer, HttpServletResponse response){
+        Customer customer1=userDaoService.getLoggedInCustomer();
+        Integer customer_user_id=customer1.getId();
+        String message = data.updateCustomer(customer,customer_user_id);
         if (!message.equals("User updated")) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
         return message;
     }
-    @PostMapping("/addCustomerAddress/{id}")
-    public String addCustomerAddress(@Valid @RequestBody AddressDto addressDto,@PathVariable(value = "id") Integer id, HttpServletResponse response)
+    @PostMapping("/addCustomerAddress")
+    public String addCustomerAddress(@RequestBody AddressRegisterDto addressRegisterDto, HttpServletResponse response)
     {
-        String message = data.addAddress(addressDto,id);
+        Customer customer=userDaoService.getLoggedInCustomer();
+        Integer customer_user_id=customer.getId();
+        String message = data.addAddress(addressRegisterDto,customer_user_id);
         if (!message.equals("Address added")) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
         return message;
     }
 
-    @PostMapping("/deleteCustomerAddress/{id}")
-    public String deleteCustomerAddress(@PathVariable(value = "id") Integer id, HttpServletResponse response)
+    @PostMapping("/deleteCustomerAddress/{addressId}")
+    public String deleteCustomerAddress(@PathVariable(value = "addressId") Integer addressId,HttpServletResponse response)
     {
-        String message = data.deleteAddress(id);
+        Customer customer=userDaoService.getLoggedInCustomer();
+        Integer customer_user_id=customer.getId();
+        String message = data.deleteAddress(addressId,customer_user_id);
         if (!message.equals("Address deleted")) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
         return message;
     }
 
-    @PostMapping("/updateCustomerAddress/{id}")
-    public String updateCustomerAddress(@Valid @RequestBody AddressDto addressDto,@PathVariable(value = "id") Integer id, HttpServletResponse response)
+    @PostMapping("/updateCustomerAddress/{addressId}")
+    public String updateCustomerAddress(@RequestBody AddressUpdateDto addressUpdateDto, @PathVariable(value = "addressId") Integer addressId, HttpServletResponse response)
     {
-        String message = data.updateAddress(addressDto,id);
+        Customer customer=userDaoService.getLoggedInCustomer();
+        Integer customer_user_id=customer.getId();
+        String message = data.updateAddress(addressUpdateDto,addressId,customer_user_id);
         if (!message.equals("Address updated")) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
+        return message;
+    }
+
+    @PostMapping("/updateCustomerPassword")
+    public String updateCustomerPasswordRegister(@RequestBody CustomerUpdateDto customerUpdateDto, HttpServletResponse response)
+    {
+        Customer customer=userDaoService.getLoggedInCustomer();
+        Integer customer_user_id=customer.getId();
+        String message=data.updateCustomerPassword(customerUpdateDto,customer_user_id);
+        if (!message.equals("Password updated")) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
         return message;

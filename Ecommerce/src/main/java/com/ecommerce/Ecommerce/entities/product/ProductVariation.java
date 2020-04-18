@@ -8,8 +8,8 @@ public class ProductVariation {
     @Id
     @GeneratedValue(generator = "increment")
     private int id;
-    private String quantity_available;
-    private double price;
+    private Integer quantity_available;
+    private Double price;
     private String primary_image_name;
     private boolean is_active;
 
@@ -25,19 +25,19 @@ public class ProductVariation {
         this.id = id;
     }
 
-    public String getQuantity_available() {
+    public Integer getQuantity_available() {
         return quantity_available;
     }
 
-    public void setQuantity_available(String quantity_available) {
+    public void setQuantity_available(Integer quantity_available) {
         this.quantity_available = quantity_available;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 

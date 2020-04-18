@@ -11,7 +11,7 @@ import java.util.List;
 public class Product {
     @Id
     @GeneratedValue(generator = "increment")
-    private int id;
+    private Long id;
     private String name;
     private String description;
     private boolean is_cancellable;
@@ -33,11 +33,11 @@ public class Product {
     @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
     private List<ProductReview>product_reviews=new ArrayList();
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

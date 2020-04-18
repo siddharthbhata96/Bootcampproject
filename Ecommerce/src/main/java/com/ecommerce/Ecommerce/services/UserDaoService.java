@@ -1,14 +1,19 @@
 package com.ecommerce.Ecommerce.services;
 
 import com.ecommerce.Ecommerce.entities.registration.*;
+import com.ecommerce.Ecommerce.exception.TokenExpiredException;
 import com.ecommerce.Ecommerce.repos.*;
+import com.ecommerce.Ecommerce.security.AppUser;
 import com.ecommerce.Ecommerce.token.ConfirmationToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.*;
 
 @Service
@@ -109,11 +114,15 @@ public class UserDaoService {
             return "Registration successful.Admin will confirm your account";
         }
     }
+    @Transactional
     public String confirmAccount(String confirmationToken)
     {
         ConfirmationToken token = confirmationTokenRepository.findByConfirmationToken(confirmationToken);
-        if(token != null)
-        {
+        Date presentDate = new Date();
+        if (token.getExpiryDate().getTime() - presentDate.getTime() <= 0){
+            throw new TokenExpiredException("Token has been expired");
+        }
+        else{
             Optional<User> user = userRepository.findByEmail(token.getUser().getEmail());
             if(user.isPresent())
             {
@@ -123,9 +132,6 @@ public class UserDaoService {
             }
 
             return "Your account is activated" ;
-        }
-        else {
-            return "Error ! Please try again";
         }
     }
 
@@ -146,5 +152,29 @@ public class UserDaoService {
 
         return "Address saved successfully";
 
+    }
+
+    public Customer getLoggedInCustomer() {
+        User customer;
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        AppUser appUser = (AppUser) authentication.getPrincipal();
+        String email = appUser.getUsername();
+        Optional<User>byEmail= userRepository.findByEmail(email);
+        customer=byEmail.get();
+        Customer customer1=(Customer)customer;
+
+        return customer1;
+    }
+
+    public Seller getLoggedInSeller() {
+        User seller;
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        AppUser appUser = (AppUser) authentication.getPrincipal();
+        String email = appUser.getUsername();
+        Optional<User>byEmail= userRepository.findByEmail(email);
+        seller=byEmail.get();
+        Seller seller1=(Seller)seller;
+
+        return seller1;
     }
 }

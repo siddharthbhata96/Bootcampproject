@@ -1,3 +1,4 @@
+
 package com.ecommerce.Ecommerce.validations;
 
 import javax.validation.ConstraintValidator;
@@ -18,3 +19,4 @@ public class EmailValidation implements ConstraintValidator<Email, String> {
     }
 
 }
+

@@ -1,5 +1,7 @@
 package com.ecommerce.Ecommerce.entities.product;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Entity;
 import javax.persistence.*;
 
@@ -13,6 +15,7 @@ public class ProductVariation {
     private String primary_image_name;
     private boolean is_active;
 
+    @JsonIgnore
     @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name="product_id")
     private Product product;

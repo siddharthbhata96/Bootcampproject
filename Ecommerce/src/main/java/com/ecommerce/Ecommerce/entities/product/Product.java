@@ -2,12 +2,15 @@
 package com.ecommerce.Ecommerce.entities.product;
 
 import com.ecommerce.Ecommerce.entities.registration.Seller;
+import com.fasterxml.jackson.annotation.JsonFilter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@JsonFilter("productfilter")
 public class Product {
     @Id
     @GeneratedValue(generator = "increment")
@@ -18,7 +21,9 @@ public class Product {
     private boolean is_returnable;
     private String brand;
     private boolean is_active;
+    private boolean is_deleted;
 
+    @JsonIgnore
     @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name="seller_user_id")
     private Seller seller;
@@ -120,6 +125,14 @@ public class Product {
 
     public void setProduct_reviews(List<ProductReview> product_reviews) {
         this.product_reviews = product_reviews;
+    }
+
+    public boolean isIs_deleted() {
+        return is_deleted;
+    }
+
+    public void setIs_deleted(boolean is_deleted) {
+        this.is_deleted = is_deleted;
     }
 }
 

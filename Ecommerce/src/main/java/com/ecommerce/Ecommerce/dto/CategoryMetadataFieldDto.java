@@ -1,8 +1,8 @@
-package com.ecommerce.Ecommerce.model;
+package com.ecommerce.Ecommerce.dto;
 
 import java.util.Set;
 
-public class CategoryMetadataFieldModel {
+public class CategoryMetadataFieldDto {
 
     private String name;
     private Set<String> values;

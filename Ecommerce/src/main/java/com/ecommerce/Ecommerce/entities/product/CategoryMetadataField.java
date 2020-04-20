@@ -8,7 +8,7 @@ import javax.persistence.Id;
 @Entity
 public class CategoryMetadataField {
     @Id
-    @GeneratedValue(generator="")
+    @GeneratedValue(generator="increment")
     private Long id;
 
     private String name;

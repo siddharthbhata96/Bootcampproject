@@ -13,7 +13,7 @@ import java.util.List;
 @JsonFilter("userFilter")
 public class User {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(generator = "increment")
     @JsonIgnore
     private int id;
     private String email;

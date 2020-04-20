@@ -5,8 +5,8 @@ import com.ecommerce.Ecommerce.entities.product.CategoryMetadataField;
 import com.ecommerce.Ecommerce.entities.product.CategoryMetadataFieldValues;
 import com.ecommerce.Ecommerce.exception.BadRequestException;
 import com.ecommerce.Ecommerce.exception.ResourceNotFoundException;
-import com.ecommerce.Ecommerce.model.CategoryMetadataFieldModel;
-import com.ecommerce.Ecommerce.model.MetadataFieldValueInsertModel;
+import com.ecommerce.Ecommerce.dto.CategoryMetadataFieldDto;
+import com.ecommerce.Ecommerce.dto.MetadataFieldValueInsertDto;
 import com.ecommerce.Ecommerce.repos.CategoryMetadataFieldRepository;
 import com.ecommerce.Ecommerce.repos.CategoryMetadataFieldValuesRepository;
 import com.ecommerce.Ecommerce.repos.CategoryRepository;
@@ -40,7 +40,7 @@ public class CategoryMetadataFieldService {
         }
     }
 
-    public String addNewMetadataFieldValues(MetadataFieldValueInsertModel fieldValueDtos, Long categoryId, Long metaFieldId){
+    public String addNewMetadataFieldValues(MetadataFieldValueInsertDto fieldValueDtos, Long categoryId, Long metaFieldId){
 
         Optional<Category> category= categoryRepository.findById(categoryId);
         Optional<CategoryMetadataField> categoryMetadataField= categoryMetadataFieldRepository.findById(metaFieldId);
@@ -49,15 +49,15 @@ public class CategoryMetadataFieldService {
         else if (!categoryMetadataField.isPresent())
             throw new ResourceNotFoundException("Metadata field does not exists");
         else{
-            Category category1= new Category();
+            Category category1;
             category1= category.get();
 
-            CategoryMetadataField categoryMetadataField1= new CategoryMetadataField();
+            CategoryMetadataField categoryMetadataField1;
             categoryMetadataField1= categoryMetadataField.get();
 
             CategoryMetadataFieldValues categoryFieldValues = new CategoryMetadataFieldValues();
 
-            for(CategoryMetadataFieldModel fieldValuePair : fieldValueDtos.getFieldValues()){
+            for(CategoryMetadataFieldDto fieldValuePair : fieldValueDtos.getFieldValues()){
 
                 String values = StringToMapParser.toCommaSeparatedString(fieldValuePair.getValues());
 

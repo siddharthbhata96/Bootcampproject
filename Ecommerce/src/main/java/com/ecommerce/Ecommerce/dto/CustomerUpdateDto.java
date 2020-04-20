@@ -1,6 +1,6 @@
 package com.ecommerce.Ecommerce.dto;
 
-import com.ecommerce.Ecommerce.validations.ValidPassword;
+//import com.ecommerce.Ecommerce.validations.ValidPassword;
 
 public class CustomerUpdateDto {
     private String firstName;
@@ -8,7 +8,6 @@ public class CustomerUpdateDto {
     private String lastName;
     private String email;
     private String contact;
-    @ValidPassword
     private  String password;
     private String confirmPassword;
 

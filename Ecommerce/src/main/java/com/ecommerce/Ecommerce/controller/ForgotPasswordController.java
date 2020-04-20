@@ -14,7 +14,6 @@ public class ForgotPasswordController {
     public String resetPassword(@RequestBody String email){
         String message = forgotPasswordService.resetUserPassword(email);
        return message;
-        //return "hello";
     }
 
     @PutMapping("/reset-password")

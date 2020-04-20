@@ -1,6 +1,7 @@
 package com.ecommerce.Ecommerce.controller;
 
 import com.ecommerce.Ecommerce.services.AdminDaoService;
+import com.ecommerce.Ecommerce.services.ProductDaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 public class AdminController {
     @Autowired
     AdminDaoService data;
+
+    @Autowired
+    ProductDaoService productDaoService;
 
     //displaying all customers
     @GetMapping("/admin/listCustomers")
@@ -37,6 +41,19 @@ public class AdminController {
     public String deactivateUser(@PathVariable(value = "id") Integer id){
         String b=data.deactivateUser(id);
         return b;
+    }
+
+
+    @PatchMapping("/admin/activateproduct/{pid}")
+    public String productActivation(@PathVariable Long pid) {
+        String message = productDaoService.activateProduct(pid);
+        return  message;
+    }
+
+    @PatchMapping("/admin/deactivateproduct/{pid}")
+    public String productDeactivation(@PathVariable Long pid) {
+        String message = productDaoService.deactivateProduct(pid);
+        return  message;
     }
 }
 

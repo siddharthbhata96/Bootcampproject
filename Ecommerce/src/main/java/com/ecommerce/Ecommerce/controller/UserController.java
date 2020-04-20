@@ -1,5 +1,7 @@
 package com.ecommerce.Ecommerce.controller;
 
+import com.ecommerce.Ecommerce.dto.CustomerRegisterDto;
+import com.ecommerce.Ecommerce.dto.SellerRegisterDto;
 import com.ecommerce.Ecommerce.entities.registration.*;
 import com.ecommerce.Ecommerce.services.UserDaoService;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -36,16 +38,16 @@ public class UserController {
     }
 
     @PostMapping("/custSave")
-    public String createCust(@RequestBody Customer customer)
+    public String createCust(@RequestBody CustomerRegisterDto customerRegisterDto)
     {
-      String b=data.createCustomer(customer);
+      String b=data.createCustomer(customerRegisterDto);
       return b;
     }
 
     @PostMapping("/sellSave")
-    public String createSell(@RequestBody Seller seller)
+    public String createSell(@RequestBody SellerRegisterDto sellerRegisterDto)
     {
-        String c=data.createSupplier(seller);
+        String c=data.createSupplier(sellerRegisterDto);
         return c;
     }
 

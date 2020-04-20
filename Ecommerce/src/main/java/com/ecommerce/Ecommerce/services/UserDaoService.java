@@ -1,10 +1,13 @@
 package com.ecommerce.Ecommerce.services;
 
+import com.ecommerce.Ecommerce.dto.CustomerRegisterDto;
+import com.ecommerce.Ecommerce.dto.SellerRegisterDto;
 import com.ecommerce.Ecommerce.entities.registration.*;
 import com.ecommerce.Ecommerce.exception.TokenExpiredException;
 import com.ecommerce.Ecommerce.repos.*;
 import com.ecommerce.Ecommerce.security.AppUser;
 import com.ecommerce.Ecommerce.token.ConfirmationToken;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.Authentication;
@@ -35,8 +38,8 @@ public class UserDaoService {
     private EmailSenderService emailSenderService;
 
     public List<User> user = new ArrayList();
-    public List<Customer> customer = new ArrayList();
-    public List<Seller> seller = new ArrayList();
+    public List<Customer> customer1 = new ArrayList();
+    public List<Seller> seller1 = new ArrayList();
     public Role role = new Role();
     PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
@@ -52,30 +55,33 @@ public class UserDaoService {
         return saving;
     }
 
-    public String createCustomer(Customer custSaving) {
-        Optional<User> existingUser = userRepository.findByEmail(custSaving.getEmail());
+
+    public String createCustomer(CustomerRegisterDto customerRegisterDto) {
+        Optional<User> existingUser = userRepository.findByEmail(customerRegisterDto.getEmail());
         if (existingUser.isPresent())
         {
             return "This email already exists";
         }
         else
-            {
-            String hpass = custSaving.getPassword();
-            custSaving.setPassword(passwordEncoder.encode(hpass));
-            customer.add(custSaving);
+        {
+            ModelMapper modelMapper = new ModelMapper();
+            Customer customer= modelMapper.map(customerRegisterDto, Customer.class);
+            String hpass = customer.getPassword();
+            customer.setPassword(passwordEncoder.encode(hpass));
+            customer1.add(customer);
             Optional<Role> role1 = roleRepository.findById(2);
 
             role = role1.get();
 
-            custSaving.setRoles(Arrays.asList(role));
+            customer.setRoles(Arrays.asList(role));
 
-            userRepository.save(custSaving);
+            userRepository.save(customer);
 
 
-            ConfirmationToken confirmationToken = new ConfirmationToken(custSaving);
+            ConfirmationToken confirmationToken = new ConfirmationToken(customer);
             confirmationTokenRepository.save(confirmationToken);
             SimpleMailMessage mailMessage = new SimpleMailMessage();
-            mailMessage.setTo(custSaving.getEmail());
+            mailMessage.setTo(customer.getEmail());
             mailMessage.setSubject("Complete Registration");
             mailMessage.setFrom("siddharth.bhatia1996@gmail.com");
             mailMessage.setText("To confirm your account, please click here : "
@@ -85,27 +91,30 @@ public class UserDaoService {
         }
     }
 
-    public String createSupplier(Seller sellSaving) {
-        Optional<User> existingUser = userRepository.findByEmail(sellSaving.getEmail());
+    //Seller sellSaving
+    public String createSupplier(SellerRegisterDto sellerRegisterDto) {
+        Optional<User> existingUser = userRepository.findByEmail(sellerRegisterDto.getEmail());
         if (existingUser.isPresent())
         {
             return "This email already exists";
         }
         else {
-            String hpass = sellSaving.getPassword();
-            sellSaving.setPassword(passwordEncoder.encode(hpass));
-            seller.add(sellSaving);
+            ModelMapper modelMapper = new ModelMapper();
+            Seller seller= modelMapper.map(sellerRegisterDto, Seller.class);
+            String hpass = seller.getPassword();
+            seller.setPassword(passwordEncoder.encode(hpass));
+            seller1.add(seller);
             Optional<Role> role1 = roleRepository.findById(3);
 
             role = role1.get();
 
-            sellSaving.setRoles(Arrays.asList(role));
-            userRepository.save(sellSaving);
+            seller.setRoles(Arrays.asList(role));
+            userRepository.save(seller);
 
-            ConfirmationToken confirmationToken = new ConfirmationToken(sellSaving);
+            ConfirmationToken confirmationToken = new ConfirmationToken(seller);
             confirmationTokenRepository.save(confirmationToken);
             SimpleMailMessage mailMessage = new SimpleMailMessage();
-            mailMessage.setTo(sellSaving.getEmail());
+            mailMessage.setTo(seller.getEmail());
             mailMessage.setSubject("Complete Registration");
             mailMessage.setFrom("siddharth.bhatia1996@gmail.com");
             mailMessage.setText("To confirm your account, please click here : "
@@ -129,13 +138,13 @@ public class UserDaoService {
                 User userobj=user.get();
                 userobj.setIs_active(true);
                 userRepository.save(userobj);
+                confirmationTokenRepository.delConfirmationToken(confirmationToken);
+                return "Your account is activated" ;
             }
-
             return "Your account is activated" ;
         }
     }
 
-    
     public String createAddress(Integer id, Address address) {
         List<Address> addresses = new ArrayList<>();
         User user;  //creation of variable of type user

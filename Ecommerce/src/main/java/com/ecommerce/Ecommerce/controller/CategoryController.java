@@ -2,7 +2,7 @@ package com.ecommerce.Ecommerce.controller;
 
 
 import com.ecommerce.Ecommerce.entities.product.Category;
-import com.ecommerce.Ecommerce.model.MetadataFieldValueInsertModel;
+import com.ecommerce.Ecommerce.dto.MetadataFieldValueInsertDto;
 import com.ecommerce.Ecommerce.services.CategoryDaoService;
 import com.ecommerce.Ecommerce.services.CategoryMetadataFieldService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +43,7 @@ public class CategoryController {
     }
 
     @PostMapping("/metadata-fields/addValues/{categoryId}/{metaFieldId}")
-    public String addMetaDataFieldValues(@RequestBody MetadataFieldValueInsertModel fieldValueDtos, @PathVariable Long categoryId, @PathVariable Long metaFieldId) {
+    public String addMetaDataFieldValues(@RequestBody MetadataFieldValueInsertDto fieldValueDtos, @PathVariable Long categoryId, @PathVariable Long metaFieldId) {
         return categoryMetadataFieldService.addNewMetadataFieldValues(fieldValueDtos, categoryId, metaFieldId);
     }
 }

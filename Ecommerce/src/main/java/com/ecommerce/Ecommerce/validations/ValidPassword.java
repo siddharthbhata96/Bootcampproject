@@ -1,3 +1,4 @@
+
 package com.ecommerce.Ecommerce.validations;
 
 import javax.validation.Constraint;
@@ -17,3 +18,4 @@ public @interface ValidPassword {
 
     Class<? extends Payload>[] payload() default {};
 }
+

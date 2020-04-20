@@ -1,4 +1,3 @@
-
 package com.ecommerce.Ecommerce.validations;
 
 import javax.validation.Constraint;
@@ -6,11 +5,13 @@ import javax.validation.Payload;
 import java.lang.annotation.*;
 
 @Documented
-@Constraint(validatedBy = EmailValidation.class)
-@Target( { ElementType.METHOD, ElementType.FIELD })
+@Constraint(validatedBy = PasswordValidation.class)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Email {
-    String message() default "Invalid Email";
+@Target(ElementType.FIELD)
+public @interface Password {
+
+
+    String message() default "Invalid Password";
 
     Class<?>[] groups() default {};
 
